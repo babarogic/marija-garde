@@ -1,4 +1,6 @@
 ---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
 const statistike = [
   {
     broj: '1 od 7',
@@ -18,14 +20,20 @@ const statistike = [
 <section class="bg-dusty">
   <div class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32" data-reveal-group>
     <h2 class="sr-only">Zašto je podrška odraslima važna</h2>
-    <div class="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-10">
-      {statistike.map(({ broj, tekst, izvor }) => (
-        <div class="max-w-md" data-reveal>
-          <p class="font-serif text-display text-espresso">{broj}</p>
-          <p class="mt-5 text-body text-espresso">{tekst}</p>
-          <p class="mt-4 text-small text-espresso">{izvor}</p>
-        </div>
-      ))}
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[7fr_5fr] lg:items-center lg:gap-20">
+      <div class="grid grid-cols-1 gap-16 sm:grid-cols-2 sm:gap-10">
+        {statistike.map(({ broj, tekst, izvor }) => (
+          <div class="max-w-md" data-reveal>
+            <p class="font-serif text-display text-espresso">{broj}</p>
+            <p class="mt-5 text-body text-espresso">{tekst}</p>
+            <p class="mt-4 text-small text-espresso">{izvor}</p>
+          </div>
+        ))}
+      </div>
+      <ImagePlaceholder
+        label="FOTO: učionica ili igralište — odrasla osoba i deca u interakciji, dokumentaran kadar"
+        class="aspect-[3/2] lg:aspect-[4/3]"
+      />
     </div>
   </div>
 </section>
