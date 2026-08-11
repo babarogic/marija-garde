@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import familyGolden from '../assets/family-golden.jpg';
+
+const kvadranti = [
+  {
+    naslov: 'U dodiru sa sobom',
+    stavke: ['Prezasićenje svakodnevnicom (burnout)', 'Apatija (boreout)', 'Životne promene'],
+  },
+  {
+    naslov: 'Blage i odlučne granice',
+    stavke: ['Prioriteti najveće radosti', 'Partnerska harmonija', '24h u moju korist'],
+  },
+  {
+    naslov: 'Podržano detinjstvo',
+    stavke: [
+      'Neuroregulacija emocija',
+      'Poštovanje integriteta deteta',
+      'Konekcija pre korekcije',
+      'Prirodni autoritet sa decom',
+    ],
+  },
+  {
+    naslov: 'Minimalni standard potreba',
+    stavke: [
+      'Definisanje bazičnih i emotivnih potreba',
+      'Potrebe za ličnim razvojem',
+      'Doprinos široj zajednici',
+    ],
+  },
+];
+---
+
+<section id="oblasti-rada" class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
+  <div class="grid grid-cols-1 gap-14 lg:grid-cols-[5fr_7fr] lg:gap-20">
+    <div data-reveal-group>
+      <p class="eyebrow" data-reveal>Oblasti rada</p>
+      <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>
+        Kreator milijardu zagrljaja
+      </h2>
+      <p class="mt-6 text-body text-espresso/90" data-reveal>
+        Autorski koncept pruža svakodnevno primenljiv pristup za izgradnju svesnog i stabilnog
+        ponašanja odraslih, stvarajući podsticajne uslove za lični i dečji razvoj. Utemeljen na
+        savremenim naučnim saznanjima, prilagođava se vašim potrebama kroz četiri ključne oblasti.
+      </p>
+      <Image
+        src={familyGolden}
+        alt="Roditelji i deca se drže za ruke i igraju u dnevnoj sobi obasjanoj zalazećim suncem"
+        class="mt-10 hidden aspect-[4/5] w-full rounded-2xl object-cover lg:block"
+        widths={[480, 736]}
+        sizes="(min-width: 1024px) 420px, 100vw"
+        data-reveal
+      />
+    </div>
+    <div class="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2" data-reveal-group>
+      {kvadranti.map(({ naslov, stavke }, i) => (
+        <div class="border-t border-espresso/15 pt-6" data-reveal>
+          <p class="text-small text-espresso/80" aria-hidden="true">0{i + 1}</p>
+          <h3 class="mt-2 text-h3 font-medium text-espresso">{naslov}</h3>
+          <ul class="mt-4 space-y-2">
+            {stavke.map((stavka) => (
+              <li class="flex gap-3 text-body text-espresso/90">
+                <span class="mt-3 size-1.5 shrink-0 rounded-full bg-coral" aria-hidden="true"></span>
+                {stavka}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

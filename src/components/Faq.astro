@@ -1,0 +1,71 @@
+---
+const pitanja = [
+  {
+    pitanje: 'Koji paket sesija da izaberem?',
+    odgovor:
+      'Paket od 5 sesija u radu 1:1 preporučuje se za obradu novih tema klijentima upoznatim sa ličnim razvojem, ili početnicima za prve korake. Paket od 15 sesija omogućuje kompleksniji i detaljniji prilaz izabranim temama, uz rad na potisnutim emocijama, uverenjima i strahovima. Porodične sesije su fokusirane na partnerske odnose, zajedničku roditeljsku strategiju ili važne životne odluke.',
+  },
+  {
+    pitanje: 'Da li je bolje da sama prisustvujem sesijama ili sa partnerom?',
+    odgovor:
+      'Uz čvrsto verovanje u aktivno rešavanje problema udvoje i usklađen jedinstveni roditeljski pravac kao ključ rešenja, dobijate priliku da učestvujete zajedno u promenama — zadržavajući istu cenu paketa kao u radu 1:1.',
+  },
+  {
+    pitanje: 'Da li je neophodno prisustvo i odraslog i deteta?',
+    odgovor:
+      'Najveći broj problema zapravo je rešen direktnom korekcijom ponašanja odraslih u kontaktu sa decom. Lične sesije sa mladima i decom najčešće su vezane za školsku ili sportsku orijentaciju, uz prethodnu saglasnost roditelja.',
+  },
+  {
+    pitanje: 'Kako izgledaju sesije i koliko dugo traju?',
+    odgovor:
+      'Sesije mogu biti individualne, partnerske ili porodične, na srpskom, engleskom, francuskom ili španskom — jeziku na kome se osećate najslobodnije. Odvijaju se online uživo, preko Google Meet-a ili Zoom-a, iz udobnosti vašeg doma. Sesija traje 60 minuta, a prva konsultacija je besplatna i traje 15 minuta.',
+  },
+  {
+    pitanje: 'Kako je moguće preneti emocije online?',
+    odgovor:
+      'U trenutku kada ostvarimo konekciju i poverenje, prostor postaje nebitan. Online interakcija štedi vreme na logistici i prevozu, pa se odmah nakon sesije možete vratiti porodici ili obavezama.',
+  },
+  {
+    pitanje: 'Može li se promeniti tema tokom jednog paketa sesija?',
+    odgovor:
+      'Moguće je promeniti teme u toku paketa. Klijent određuje dinamiku promena tema prema svojim potrebama i vremenu neophodnom da stigne do željenog stanja.',
+  },
+  {
+    pitanje: 'Na koje sve načine je moguće izvršiti plaćanje?',
+    odgovor:
+      'Klijenti iz Srbije imaju obavezu plaćanja preko računa, dok klijenti iz inostranstva imaju i mogućnost plaćanja preko PayPal-a.',
+  },
+];
+---
+
+<section id="faq" class="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
+  <div class="max-w-2xl" data-reveal-group>
+    <p class="eyebrow" data-reveal>Najčešća pitanja</p>
+    <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Odgovori za početak puta</h2>
+    <p class="mt-6 text-body text-espresso/90" data-reveal>
+      Put ličnog razvoja, naročito ukoliko ste na početku, može delovati zbunjujuće — ovde su
+      odgovori na najčešće postavljena pitanja.
+    </p>
+  </div>
+  <div class="mt-12 space-y-3" data-reveal-group>
+    {pitanja.map(({ pitanje, odgovor }) => (
+      <details class="group rounded-xl bg-dusty" data-reveal>
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 text-h3 font-medium text-espresso [&::-webkit-details-marker]:hidden">
+          {pitanje}
+          <svg
+            class="size-4 shrink-0 transition-transform duration-300 group-open:rotate-45 motion-reduce:transition-none"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M8 1v14M1 8h14" />
+          </svg>
+        </summary>
+        <p class="px-6 pb-6 text-body text-espresso">{odgovor}</p>
+      </details>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+const statistike = [
+  {
+    broj: '1 od 7',
+    tekst:
+      'dece i adolescenata pokazuje znake anksioznosti ili depresivnosti — pokazatelj šireg uticaja porodičnog i društvenog okruženja.',
+    izvor: 'WHO Europe, 2025.',
+  },
+  {
+    broj: '45%',
+    tekst:
+      'vaspitača i nastavnika oseća visok nivo emocionalne iscrpljenosti, direktno povezan sa svakodnevnim radom sa decom.',
+    izvor: 'WHO, 2023.',
+  },
+];
+---
+
+<section class="bg-dusty">
+  <div class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32" data-reveal-group>
+    <h2 class="sr-only">Zašto je podrška odraslima važna</h2>
+    <div class="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-10">
+      {statistike.map(({ broj, tekst, izvor }) => (
+        <div class="max-w-md" data-reveal>
+          <p class="font-serif text-display text-espresso">{broj}</p>
+          <p class="mt-5 text-body text-espresso">{tekst}</p>
+          <p class="mt-4 text-small text-espresso">{izvor}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

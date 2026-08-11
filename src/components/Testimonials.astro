@@ -1,0 +1,34 @@
+---
+const utisci = [
+  {
+    ime: 'Nikolina Eremija',
+    tekst:
+      'Najznačajniji deo rada sa Marijom bio je početak, kada mi je bilo najteže. Počela sam da shvatam da nije sve do mene i da smem da usporim. Postigla sam više nego što sam očekivala — lično, porodično i poslovno — jer sam prestala da se trošim do kraja. Danas dišem punim plućima, biram mir i svaki novi dan dočekujem sa zahvalnošću.',
+  },
+  {
+    ime: 'Jelena Babarogić',
+    tekst:
+      'Sesije sa Marijom su mi donele duboke uvide i unutrašnju snagu koju danas živim. Prepoznajući svoje vrednosti, naučila sam da ih postavim kao oslonac u donošenju odluka. Osnažila sam se da izrazim svoje potrebe bez straha i prilagođavanja. Danas odnosima pristupam sa više sigurnosti, prisutnosti i jasnoće. Ovo iskustvo je bilo istinsko unutrašnje pomeranje perspektive.',
+  },
+  {
+    ime: 'Marija Ostojić',
+    tekst:
+      'Najviše mi je značilo to što si me videla onako kako ja dugo nisam videla sebe. Tvoj pristup bio je topao, a istovremeno čvrst i jasan. Danas imam mir, jasnoću i snagu da prepoznam svoju vrednost, a promena se oseća i u porodici — više je topline, osmeha i poverenja. Ovo iskustvo me je vratilo meni i otvorilo mi put dalje.',
+  },
+];
+---
+
+<section id="utisci" class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
+  <div class="max-w-2xl" data-reveal-group>
+    <p class="eyebrow" data-reveal>Utisci</p>
+    <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Iskustva klijenata</h2>
+  </div>
+  <div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3" data-reveal-group>
+    {utisci.map(({ ime, tekst }) => (
+      <figure class="flex flex-col justify-between rounded-2xl bg-peach p-8 md:p-10" data-reveal>
+        <blockquote class="text-body text-espresso">„{tekst}"</blockquote>
+        <figcaption class="mt-8 text-small font-medium text-espresso">{ime}</figcaption>
+      </figure>
+    ))}
+  </div>
+</section>

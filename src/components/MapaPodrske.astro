@@ -1,0 +1,49 @@
+---
+const koraci = [
+  {
+    naslov: 'Prigrlite vreme za sebe.',
+    tekst:
+      'Zakažite 15 minuta besplatnog razgovora online uživo, u kome se upoznajemo sa vašim trenutnim i željenim stanjem i otkrivamo koja podrška najviše odgovara vašim potrebama.',
+  },
+  {
+    naslov: 'Strategijsko usvajanje promena.',
+    tekst:
+      'Fokusirano analiziramo vaša životna iskustva i razvijate lične kompetencije usvajajući nove tehnike i alate, uz podršku čiji intenzitet sami birate.',
+  },
+  {
+    naslov: 'Usmeravanje kroz primenu.',
+    tekst:
+      'Nakon završetka procesa, podržavam vas u praktičnoj primeni i usmeravam na dalji razvoj.',
+  },
+];
+---
+
+<section id="mapa-podrske" class="border-y border-espresso/10 bg-cream">
+  <div class="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
+    <div class="text-center" data-reveal-group>
+      <p class="eyebrow" data-reveal>Mapa podrške</p>
+      <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Kako izgleda zajednički rad</h2>
+    </div>
+    <ol class="mt-16" data-reveal-group>
+      {koraci.map(({ naslov, tekst }, i) => (
+        <li
+          class="grid grid-cols-[auto_1fr] gap-x-6 border-t border-espresso/15 py-10 md:grid-cols-[8rem_1fr] md:gap-x-10"
+          data-reveal
+        >
+          <span class="font-serif text-h2 text-coral" aria-hidden="true">0{i + 1}</span>
+          <div class="max-w-xl">
+            <h3 class="text-h3 font-medium text-espresso">{naslov}</h3>
+            <p class="mt-3 text-body text-espresso/90">{tekst}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <div class="border-t border-espresso/15 pt-14 text-center" data-reveal>
+      <p class="mx-auto max-w-xl text-body text-espresso/90">
+        Uzmite trenutak za sebe — da zajedno pronađemo put ka većoj jasnoći, ravnoteži i
+        sigurnosti.
+      </p>
+      <a href="/zakazivanje" class="btn-primary mt-8">Zakažite besplatnih 15 minuta</a>
+    </div>
+  </div>
+</section>

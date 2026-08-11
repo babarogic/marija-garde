@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Fonts — self-hosted, subset to Latin + Latin Extended-A (Serbian Latin).
+   Lora: 400 + 400 italic only. Switzer: 400 + 500 only.
+--------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/lora-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/lora-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/lora-400-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/lora-400-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Switzer";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/switzer-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Switzer";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/switzer-500.woff2") format("woff2");
+}
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+   Colors from the Garde Marija system (resources/design.md).
+   Type scale: exactly five roles — display, h2, h3, body, small.
+   Display and h2 use clamp() so the roles step down on mobile without extra
+   tokens; h2 never drops below 30px (Lora minimum).
+--------------------------------------------------------------------------- */
+
+@theme {
+  --color-cream: #fff4e2;
+  --color-espresso: #53433c;
+  --color-coral: #ec7f6b;
+  --color-peach: #f1bb99;
+  --color-dusty: #c6d3e4;
+  --color-terracotta: #ec5f56;
+
+  --font-serif: "Lora", Georgia, "Times New Roman", serif;
+  --font-sans: "Switzer", ui-sans-serif, system-ui, "Segoe UI", Helvetica,
+    Arial, sans-serif;
+
+  --text-display: clamp(2.375rem, 1.55rem + 3.7vw, 3.5rem); /* 38 → 56px */
+  --text-display--line-height: 1.12;
+  --text-h2: clamp(1.875rem, 1.8rem + 0.45vw, 2.125rem); /* 30 → 34px */
+  --text-h2--line-height: 1.25;
+  --text-h3: 1.125rem; /* 18px */
+  --text-h3--line-height: 1.4;
+  --text-body: 1.0625rem; /* 17px */
+  --text-body--line-height: 1.7;
+  --text-small: 0.8125rem; /* 13px */
+  --text-small--line-height: 1.5;
+
+  --tracking-eyebrow: 0.08em;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-cream font-sans text-body text-espresso antialiased;
+  }
+  ::selection {
+    background: var(--color-peach);
+    color: var(--color-espresso);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-espresso);
+    outline-offset: 3px;
+  }
+  svg[hidden] {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Components
+--------------------------------------------------------------------------- */
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-small font-normal uppercase tracking-eyebrow text-espresso/80;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-espresso px-8 py-4 font-sans text-h3 font-medium text-cream transition-colors duration-300 hover:bg-espresso/85;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-espresso bg-transparent px-8 py-4 font-sans text-h3 font-medium text-espresso transition-colors duration-300 hover:bg-espresso/5;
+  }
+
+  /* Reversed button for the terracotta closing band only. */
+  .btn-reversed {
+    @apply inline-flex items-center justify-center rounded-full bg-cream px-8 py-4 font-sans text-h3 font-medium text-espresso transition-colors duration-300 hover:bg-cream/90;
+  }
+
+  .link-quiet {
+    @apply text-espresso underline decoration-transparent decoration-2 underline-offset-4 transition-colors duration-300 hover:decoration-coral;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Rotating hero (variants A and B) — word-by-word headline stagger and
+   Potreba progress navigation. Autoplay duration comes from --hero-duration.
+--------------------------------------------------------------------------- */
+
+.hero-slides {
+  display: grid;
+}
+.hero-slides > * {
+  grid-area: 1 / 1;
+}
+.hero-slide {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s 0.35s;
+}
+.hero-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s;
+}
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  filter: blur(6px);
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.55s ease-out,
+    filter 0.55s ease-out;
+}
+.hero-slide.is-active .hero-word {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition-delay: var(--wd, 0ms);
+}
+.hero-sub {
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.55s ease-out;
+}
+.hero-slide.is-active .hero-sub {
+  opacity: 1;
+  transform: none;
+  transition-delay: 550ms;
+}
+.hero-fill {
+  width: 0%;
+}
+.hero-fill.is-running {
+  animation: hero-fill var(--hero-duration, 7s) linear forwards;
+}
+.is-held .hero-fill.is-running {
+  animation-play-state: paused;
+}
+@keyframes hero-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+/* Espresso-tinted scrim for the full-bleed variant: heavier where the
+   headline and navigation sit, lighter at the top edge. */
+.hero-scrim {
+  background:
+    radial-gradient(
+      120% 90% at 50% 62%,
+      --alpha(var(--color-espresso) / 55%),
+      transparent 78%
+    ),
+    linear-gradient(
+      to bottom,
+      --alpha(var(--color-espresso) / 45%),
+      --alpha(var(--color-espresso) / 62%) 45%,
+      --alpha(var(--color-espresso) / 78%)
+    );
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide,
+  .hero-word,
+  .hero-sub {
+    transition: none;
+  }
+  .hero-word,
+  .hero-sub {
+    transform: none;
+    filter: none;
+  }
+  .hero-fill,
+  .hero-fill.is-running {
+    animation: none;
+    width: 0%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll reveal — fade + small rise, staggered inside a group.
+   Gated behind .js on <html> so content is never hidden without JavaScript.
+   Respects prefers-reduced-motion.
+--------------------------------------------------------------------------- */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

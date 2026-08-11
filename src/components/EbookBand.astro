@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import childFlowers from '../assets/child-flowers.webp';
+---
+
+<section class="border-y border-espresso/10">
+  <div
+    class="mx-auto flex max-w-5xl flex-col items-center gap-12 px-6 py-20 text-center md:flex-row md:gap-20 md:px-8 md:py-28 md:text-left"
+    data-reveal-group
+  >
+    <div class="relative shrink-0" data-reveal>
+      <div class="relative aspect-[3/4] w-72 sm:w-96 md:w-112" data-ebook3d>
+        <Image
+          src={childFlowers}
+          alt=""
+          class="absolute inset-0 h-full w-full rounded-xl object-cover"
+          widths={[240, 274]}
+          sizes="320px"
+          data-ebook-fallback
+        />
+      </div>
+      <div
+        class="absolute -bottom-4 left-1/2 h-5 w-60 -translate-x-1/2 rounded-full bg-espresso/15 blur-lg"
+        aria-hidden="true"
+      >
+      </div>
+    </div>
+    <div class="max-w-md">
+      <h2 class="sr-only">Niste izgubili strpljenje, iscrpeli ste sebe</h2>
+      <p class="eyebrow" data-reveal>Besplatan poklon</p>
+      <p class="mt-5 text-body text-espresso/90" data-reveal>
+        E-book o tome šta se zaista dešava u vama i kako da izgradite stabilnost iz koje dolaze
+        mirnije, jasnije reakcije.
+      </p>
+      <div class="mt-8" data-reveal>
+        <a href="/riznica-znanja" class="btn-secondary">Preuzmite e-book</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Load three.js only when the band approaches the viewport; on any failure
+  // (no WebGL, import error) the static fallback image simply stays.
+  const host = document.querySelector<HTMLElement>('[data-ebook3d]');
+  if (host) {
+    const io = new IntersectionObserver(
+      async ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        try {
+          const { initEbook3D } = await import('../scripts/ebook-3d');
+          await initEbook3D(host);
+        } catch {
+          /* fallback image stays */
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    io.observe(host);
+  }
+</script>

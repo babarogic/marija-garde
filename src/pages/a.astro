@@ -1,0 +1,39 @@
+---
+// Spare: hero variant A (full-bleed rotating slider), kept for comparison.
+// The homepage uses variant B (HeroSliderEditorial).
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import HeroSliderFull from '../components/HeroSliderFull.astro';
+import Problemi from '../components/Problemi.astro';
+import Benefiti from '../components/Benefiti.astro';
+import Paketi from '../components/Paketi.astro';
+import Faq from '../components/Faq.astro';
+import OblastiRada from '../components/OblastiRada.astro';
+import MapaPodrske from '../components/MapaPodrske.astro';
+import Statistika from '../components/Statistika.astro';
+import Testimonials from '../components/Testimonials.astro';
+import EbookBand from '../components/EbookBand.astro';
+import ZakljucniCta from '../components/ZakljucniCta.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Marija Garde — Podrška odraslima koji oblikuju detinjstvo"
+  description="Coaching podrška roditeljima i odraslima koji rade sa decom. Kreator milijardu zagrljaja — svesno i stabilno ponašanje odraslih za podsticajno detinjstvo."
+>
+  <Header />
+  <main>
+    <HeroSliderFull />
+    <Problemi />
+    <Benefiti />
+    <OblastiRada />
+    <MapaPodrske />
+    <Statistika />
+    <Testimonials />
+    <Paketi />
+    <Faq />
+    <EbookBand />
+    <ZakljucniCta />
+  </main>
+  <Footer />
+</Base>

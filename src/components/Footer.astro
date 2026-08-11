@@ -1,0 +1,80 @@
+---
+const nav = [
+  { href: '/kontakt', label: 'Kontakt' },
+  { href: '/o-meni', label: 'O meni' },
+  { href: '/kreator-milijardu-zagrljaja', label: 'Kreator milijardu zagrljaja' },
+  { href: '/ponuda', label: 'Ponuda' },
+  { href: '/riznica-znanja', label: 'Riznica znanja' },
+  { href: '/radionice', label: 'Radionice' },
+];
+
+const mreze = [
+  { href: 'https://www.instagram.com/', label: 'Instagram' },
+  { href: 'https://www.tiktok.com/', label: 'TikTok' },
+  { href: 'https://www.facebook.com/', label: 'Facebook' },
+  { href: 'https://www.linkedin.com/', label: 'LinkedIn' },
+];
+---
+
+<footer class="bg-cream">
+  <div class="mx-auto max-w-6xl px-6 py-16 md:px-8 md:py-20">
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-[1fr_auto_auto] md:gap-20">
+      <div class="max-w-sm">
+        <p class="font-sans text-h3 font-medium text-espresso">Marija Garde</p>
+        <p class="mt-4 text-small text-espresso/80">
+          Dodatne alate, praktične uvide i inspiraciju za svakodnevni život i rad sa decom
+          pronađite u prijavi na mailing listu.
+        </p>
+        <form class="mt-6" data-newsletter>
+          <label for="newsletter-email" class="eyebrow">Mailing lista</label>
+          <div class="mt-3 flex gap-3">
+            <input
+              id="newsletter-email"
+              type="email"
+              name="email"
+              required
+              placeholder="Vaša e-mail adresa"
+              autocomplete="email"
+              class="w-full rounded-full border border-espresso/30 bg-transparent px-5 py-2.5 text-small text-espresso placeholder:text-espresso/60"
+            />
+            <button type="submit" class="btn-secondary px-6 py-2.5 text-small">Prijava</button>
+          </div>
+          <p class="mt-3 hidden text-small text-espresso" data-newsletter-success>
+            Hvala na prijavi!
+          </p>
+        </form>
+      </div>
+      <nav aria-label="Stranice">
+        <p class="eyebrow">Stranice</p>
+        <ul class="mt-4 space-y-2.5">
+          {nav.map(({ href, label }) => (
+            <li><a href={href} class="link-quiet text-small">{label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <nav aria-label="Društvene mreže">
+        <p class="eyebrow">Mreže</p>
+        <ul class="mt-4 space-y-2.5">
+          {mreze.map(({ href, label }) => (
+            <li>
+              <a href={href} rel="noopener" class="link-quiet text-small">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+    <p class="mt-16 border-t border-espresso/10 pt-6 text-small text-espresso/80">
+      © {new Date().getFullYear()} Marija Garde · Kreator milijardu zagrljaja
+    </p>
+  </div>
+</footer>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-newsletter]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Zameniti stvarnim endpointom za mailing listu.
+    form.querySelector('[data-newsletter-success]')?.classList.remove('hidden');
+    form.reset();
+  });
+</script>

@@ -1,0 +1,21 @@
+---
+const linije = [
+  'Ljubav koja gradi odnose.',
+  'Mudrost za životne izazove.',
+  'Svesni izbori, umesto reakcija.',
+];
+---
+
+<section class="border-y border-espresso/10">
+  <ul
+    class="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-espresso/10 px-6 md:grid-cols-3 md:divide-x md:divide-y-0 md:px-8"
+    data-reveal-group
+  >
+    {linije.map((linija, i) => (
+      <li class="flex items-baseline gap-4 py-8 md:justify-center md:py-12" data-reveal>
+        <span class="text-small text-espresso/80" aria-hidden="true">0{i + 1}</span>
+        <span class="text-h3 font-medium">{linija}</span>
+      </li>
+    ))}
+  </ul>
+</section>

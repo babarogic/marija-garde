@@ -1,0 +1,98 @@
+---
+// Variant B — editorial rotating hero. Keeps the cream hero + meadow image
+// below; the headline block rotates and the Potreba lines become progress
+// tabs between the CTA and the image (replacing the standalone strip).
+import { Image } from 'astro:assets';
+import heroMeadow from '../assets/hero-meadow.webp';
+import { slides } from '../data/heroSlides';
+---
+
+<section data-hero-slider style="--hero-duration: 7s" aria-label="Uvodne poruke">
+  <div class="mx-auto max-w-6xl px-6 pt-20 pb-14 text-center md:px-8 md:pt-28">
+    <p class="eyebrow">Kreator milijardu zagrljaja</p>
+    <div class="hero-slides mt-6 w-full">
+      {slides.map(({ naslov, tekst }, i) => (
+        <div
+          class:list={['hero-slide flex flex-col items-center', i === 0 && 'is-active']}
+          data-slide
+          aria-hidden={i !== 0 ? 'true' : 'false'}
+        >
+          {i === 0 ? (
+            <h1 class="mx-auto max-w-3xl font-serif text-display text-espresso">
+              {naslov.split(' ').map((rec) => (
+                <>
+                  <span class="hero-word">{rec}</span>{' '}
+                </>
+              ))}
+            </h1>
+          ) : (
+            <p class="mx-auto max-w-3xl font-serif text-display text-espresso">
+              {naslov.split(' ').map((rec) => (
+                <>
+                  <span class="hero-word">{rec}</span>{' '}
+                </>
+              ))}
+            </p>
+          )}
+          <p class="hero-sub mx-auto mt-6 max-w-xl text-body text-espresso/90">{tekst}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-10">
+      <a href="/zakazivanje" class="btn-primary">Zakažite besplatnih 15 minuta</a>
+    </div>
+
+    <div class="mx-auto mt-16 flex max-w-4xl flex-col items-stretch gap-6 sm:flex-row sm:items-end">
+      <nav aria-label="Izbor uvodne poruke" class="grid grow grid-cols-1 gap-5 text-left sm:grid-cols-3 sm:gap-8">
+        {slides.map(({ potreba }, i) => (
+          <button
+            type="button"
+            data-slide-nav
+            aria-current={i === 0 ? 'true' : 'false'}
+            class="group cursor-pointer text-left opacity-75 transition-opacity duration-300 hover:opacity-100 aria-[current=true]:opacity-100"
+          >
+            <span class="flex items-baseline gap-3">
+              <span class="text-small text-espresso/80" aria-hidden="true">0{i + 1}</span>
+              <span class="text-small font-medium text-espresso">{potreba}</span>
+            </span>
+            <span class="mt-3 block h-0.5 w-full rounded-full bg-espresso/10" aria-hidden="true">
+              <span class="hero-fill block h-0.5 rounded-full bg-coral" data-fill></span>
+            </span>
+          </button>
+        ))}
+      </nav>
+      <button
+        type="button"
+        data-pause
+        aria-pressed="false"
+        aria-label="Pauzirajte automatsku rotaciju poruka"
+        class="mb-0.5 flex size-9 shrink-0 cursor-pointer items-center justify-center self-end rounded-full border border-espresso/40 text-espresso transition-colors duration-300 hover:border-espresso"
+      >
+        <svg data-icon-pause width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">
+          <rect x="0" y="0" width="3.5" height="12" rx="1" />
+          <rect x="6.5" y="0" width="3.5" height="12" rx="1" />
+        </svg>
+        <svg data-icon-play hidden width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">
+          <path d="M0 0 L10 6 L0 12 Z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="px-6 pb-6 md:px-8">
+    <Image
+      src={heroMeadow}
+      alt="Žena leži u cvetnoj livadi raširenih ruku podignutih ka nebu"
+      class="mx-auto aspect-[16/9] w-full max-w-7xl rounded-2xl object-cover md:aspect-[21/9]"
+      widths={[640, 1024, 1600, 2200]}
+      sizes="(min-width: 1440px) 1280px, 100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+</section>
+
+<script>
+  import { initHeroSlider } from '../scripts/hero-slider';
+  document.querySelectorAll<HTMLElement>('[data-hero-slider]').forEach(initHeroSlider);
+</script>

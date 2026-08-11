@@ -1,0 +1,108 @@
+---
+const paketi = [
+  {
+    naslov: 'Paket 5+1',
+    opis: 'Rad 1:1 · 5 online sesija od 60 min + poklon follow-up sesija od 45 min',
+    idealanZa: [
+      'Klijente koji počinju da rade na ličnom razvoju',
+      'Nove teme klijenata sa iskustvom u ličnom razvoju',
+    ],
+    dobijate: [
+      'Prepoznavanje ključnih tačaka nezadovoljstva i stvarnih uzroka problema',
+      'Razumevanje sopstvenog uticaja na ponašanje i stanje deteta',
+      'Rešenja i alate za probleme',
+    ],
+    trajanje: 'Trajanje: mesec dana (validnost 2 meseca)',
+    cena: '397 €',
+    cenaNapomena: '80 € po sesiji',
+    promo: null,
+  },
+  {
+    naslov: 'Paket 15 sesija',
+    opis: 'Rad 1:1 · 15 online sesija od 60 min + 2 poklon follow-up sesije od 45 min',
+    idealanZa: [
+      'Sistematično i detaljno obrađene izabrane teme',
+      'Rad na potisnutim emocijama, strahovima i uverenjima',
+    ],
+    dobijate: [
+      'Unutrašnju emocionalnu stabilnost, sigurnost i jasnoću u reakcijama',
+      'Osećaj lakoće i inicijative',
+      'Dnevnik emocionalne nege — autopraćenje emocija',
+    ],
+    trajanje: 'Trajanje: 3,5 meseca (validnost 6 meseci)',
+    cena: '967 €',
+    cenaNapomena: '65 € po sesiji, ili 3 × 347 €',
+    promo: null,
+  },
+  {
+    naslov: 'Porodične sesije 5+1',
+    opis: 'Porodični rad · 5 online sesija od 60 min + poklon follow-up sesija od 45 min',
+    idealanZa: [
+      'Partnerske odnose i zajedničku roditeljsku strategiju',
+      'Važne životne odluke i promene, za odrasle, mlade i decu',
+    ],
+    dobijate: [
+      'Usklađen zajednički partnerski i roditeljski pravac',
+      'Strategije za donošenje važnih životnih odluka',
+      'Rešenja i alate za svakodnevne probleme',
+    ],
+    trajanje: 'Trajanje: mesec dana (validnost 2 meseca)',
+    cena: '397 €',
+    cenaNapomena: '80 € po sesiji',
+    promo: 'PROMO — rad udvoje po ceni za jednog',
+  },
+];
+---
+
+<section id="paketi" class="border-y border-espresso/10">
+  <div class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
+    <div class="max-w-2xl" data-reveal-group>
+      <p class="eyebrow" data-reveal>Izdvojeno iz ponude</p>
+      <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Paketi sesija</h2>
+    </div>
+    <div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3" data-reveal-group>
+      {paketi.map(({ naslov, opis, idealanZa, dobijate, trajanje, cena, cenaNapomena, promo }) => (
+        <article class="flex flex-col rounded-2xl border border-espresso/15 p-8" data-reveal>
+          <div class="flex flex-wrap items-center gap-3">
+            <h3 class="text-h3 font-medium text-espresso">{naslov}</h3>
+            {promo && (
+              <span class="rounded-full bg-peach px-3 py-1 text-small font-medium text-espresso">
+                {promo}
+              </span>
+            )}
+          </div>
+          <p class="mt-3 text-small text-espresso/80">{opis}</p>
+          <p class="mt-6 text-small font-medium text-espresso">Idealan za</p>
+          <ul class="mt-2 space-y-1.5">
+            {idealanZa.map((stavka) => (
+              <li class="flex gap-3 text-body text-espresso/90">
+                <span class="mt-3 size-1.5 shrink-0 rounded-full bg-coral" aria-hidden="true"></span>
+                {stavka}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-6 text-small font-medium text-espresso">Dobijate</p>
+          <ul class="mt-2 space-y-1.5">
+            {dobijate.map((stavka) => (
+              <li class="flex gap-3 text-body text-espresso/90">
+                <span class="mt-3 size-1.5 shrink-0 rounded-full bg-coral" aria-hidden="true"></span>
+                {stavka}
+              </li>
+            ))}
+          </ul>
+          <div class="mt-8 border-t border-espresso/15 pt-6">
+            <p class="font-serif text-h2 text-espresso">{cena}</p>
+            <p class="mt-1 text-small text-espresso/80">{cenaNapomena}</p>
+            <p class="mt-1 text-small text-espresso/80">{trajanje}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="mt-12 text-center text-body text-espresso/90" data-reveal>
+      Niste sigurni koji paket vam odgovara?
+      <a href="/zakazivanje" class="link-quiet font-medium decoration-coral">
+        Zakažite besplatnih 15 minuta</a
+      > i otkrijte zajedno sa Marijom.
+    </p>
+  </div>
+</section>
