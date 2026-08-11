@@ -1,63 +1,130 @@
 ---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
 const problemi = [
   {
     naslov: 'Nekorisno stanje uma',
     stavke: ['Manjak samopouzdanja', 'Intenzivna samokritičnost', 'Pesimizam'],
+    foto: 'FOTO: pogled kroz prozor, zamišljen izraz',
   },
   {
     naslov: 'Izazovi u komunikaciji',
     stavke: ['Nepoštovanje', 'Nesporazumi', 'Konflikti'],
+    foto: 'FOTO: roditelj i dete u napetom razgovoru',
   },
   {
     naslov: 'Preopterećeni raspored',
     stavke: ['Nedostatak vremena', 'Nepostavljene granice', 'Frustracije'],
+    foto: 'FOTO: pretrpan radni sto, kalendar, žurba',
   },
   {
     naslov: 'Nezadovoljstvo sistemom i okruženjem',
     stavke: ['Nezadovoljavajući uslovi života', 'Nedostatak podrške', 'Osećaj nepripadanja'],
+    foto: 'FOTO: usamljena figura u gradskom okruženju',
   },
   {
     naslov: 'Strahovi i rizici',
     stavke: ['Strah od gubitka', 'Strah od neuspeha', 'Neizvesna budućnost dece'],
+    foto: 'FOTO: dete i odrasla osoba, zaštitnički gest',
   },
   {
     naslov: 'Psihološki stres i emocionalni izazovi',
     stavke: ['Nemoć', 'Krivica', 'Prezahtevnost prema sebi (perfekcionizam)'],
+    foto: 'FOTO: tihi trenutak iscrpljenosti, prirodno svetlo',
   },
 ];
-import ImagePlaceholder from './ImagePlaceholder.astro';
 ---
 
-<section id="problemi" class="border-b border-espresso/10">
-  <div class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
-    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-20" data-reveal-group>
-      <div class="max-w-2xl">
-        <p class="eyebrow" data-reveal>Problemi</p>
-        <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>
-          Tačke spoticanja odraslih u kontaktu sa mladima i decom
-        </h2>
-        <p class="mt-6 text-body text-espresso/90" data-reveal>
+<section id="problemi" class="border-b border-espresso/10" data-problemi>
+  <div class="py-24 md:py-32">
+    <div class="mx-auto max-w-6xl px-6 md:px-8" data-reveal-group>
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[7fr_5fr] lg:items-start lg:gap-20">
+        <div class="max-w-2xl">
+          <p class="eyebrow" data-reveal>Problemi</p>
+          <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>
+            Tačke spoticanja odraslih u kontaktu sa mladima i decom
+          </h2>
+        </div>
+        <p class="max-w-md text-body text-espresso/90 lg:pt-2" data-reveal>
           Problemi odraslih u kontaktu sa decom inicirani su trenutnim emocionalnim stanjem,
           uticajem okoline i nekorisnim komunikativnim obrascima sa decom.
         </p>
       </div>
-      <ImagePlaceholder
-        label="FOTO: odrasla osoba u tihom trenutku preopterećenosti — dokumentaran, topao ton, prirodno svetlo"
-        class="aspect-[3/2] lg:aspect-[4/3]"
-      />
+      <div class="mt-8 flex gap-3" data-reveal>
+        <button
+          type="button"
+          data-scroll-prev
+          aria-label="Prethodni problemi"
+          class="flex size-11 cursor-pointer items-center justify-center rounded-full border border-espresso/40 text-espresso transition-colors duration-300 hover:border-espresso disabled:cursor-default disabled:opacity-35 disabled:hover:border-espresso/40"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10.5 3 5.5 8l5 5" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          data-scroll-next
+          aria-label="Sledeći problemi"
+          class="flex size-11 cursor-pointer items-center justify-center rounded-full border border-espresso/40 text-espresso transition-colors duration-300 hover:border-espresso disabled:cursor-default disabled:opacity-35 disabled:hover:border-espresso/40"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 3l5 5-5 5" />
+          </svg>
+        </button>
+      </div>
     </div>
-    <div class="mt-14 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-      {problemi.map(({ naslov, stavke }, i) => (
-        <div class="border-t border-espresso/15 pt-6" data-reveal>
+
+    <!-- Horizontalna vremenska linija: puna širina ekrana, levo poravnata sa
+         sadržajem, kartice se secaju na desnoj ivici kao poziv na listanje. -->
+    <div
+      data-scroller
+      tabindex="0"
+      role="region"
+      aria-label="Lista problema — listajte horizontalno"
+      class="mt-12 flex snap-x snap-mandatory overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pl-[max(1.5rem,calc((100%-72rem)/2+1.5rem))] scroll-pl-[max(1.5rem,calc((100%-72rem)/2+1.5rem))] md:pl-[max(2rem,calc((100%-72rem)/2+2rem))] md:scroll-pl-[max(2rem,calc((100%-72rem)/2+2rem))] pr-6 md:pr-8"
+      data-reveal-group
+    >
+      {problemi.map(({ naslov, stavke, foto }, i) => (
+        <article class="relative w-72 shrink-0 snap-start pr-8 pt-10 sm:w-80 md:pr-12" data-reveal>
+          <span class="absolute inset-x-0 top-2 border-t border-dashed border-espresso/40" aria-hidden="true"></span>
+          <span
+            class="absolute left-0 top-2 flex size-4 -translate-y-1/2 items-center justify-center rounded-full border border-espresso/60 bg-cream"
+            aria-hidden="true"
+          >
+            <span class="size-1.5 rounded-full bg-coral"></span>
+          </span>
           <p class="text-small text-espresso/80" aria-hidden="true">0{i + 1}</p>
-          <h3 class="mt-2 text-h3 font-medium text-espresso">{naslov}</h3>
+          <h3 class="mt-2 min-h-14 text-h3 font-medium text-espresso">{naslov}</h3>
           <ul class="mt-4 space-y-1.5">
             {stavke.map((stavka) => (
               <li class="text-body text-espresso/90">{stavka}</li>
             ))}
           </ul>
-        </div>
+          <ImagePlaceholder label={foto} class="mt-8 aspect-[4/3]" />
+        </article>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-problemi]').forEach((root) => {
+    const scroller = root.querySelector<HTMLElement>('[data-scroller]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-scroll-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-scroll-next]');
+    if (!scroller || !prev || !next) return;
+
+    const step = () => scroller.querySelector<HTMLElement>('article')?.offsetWidth ?? 320;
+
+    const sync = () => {
+      prev.disabled = scroller.scrollLeft <= 4;
+      next.disabled = scroller.scrollLeft >= scroller.scrollWidth - scroller.clientWidth - 4;
+    };
+
+    prev.addEventListener('click', () => scroller.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => scroller.scrollBy({ left: step(), behavior: 'smooth' }));
+    scroller.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  });
+</script>
