@@ -1,9 +1,25 @@
 ---
 // The one Vivid Terracotta moment on the page (see resources/design.md).
+// Iza sadržaja stoji slot za full-bleed fotografiju (zagrljaj roditelja i
+// deteta) u terracotta duotonu: zameniti komentar ispod sa
+//   <Image ... class="h-full w-full object-cover opacity-30 mix-blend-multiply" />
+// — overlay preko nje čuva kontrast teksta.
 ---
 
-<section class="bg-terracotta">
-  <div class="mx-auto max-w-4xl px-6 py-28 text-center md:px-8 md:py-36" data-reveal-group>
+<section class="relative overflow-hidden bg-terracotta">
+  <div class="absolute inset-0" aria-hidden="true">
+    <!-- FOTO slot: zagrljaj roditelja i deteta, širok kadar, duotone -->
+    <div
+      class="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_100%,rgba(83,67,60,0.28),transparent_65%)]"
+    >
+    </div>
+    <span
+      class="absolute bottom-4 left-4 rounded-full border border-dashed border-cream/50 px-3 py-1 text-small text-cream/80"
+    >
+      FOTO pozadina: zagrljaj roditelja i deteta — terracotta duotone
+    </span>
+  </div>
+  <div class="relative mx-auto max-w-4xl px-6 py-28 text-center md:px-8 md:py-36" data-reveal-group>
     <h2 class="font-serif text-display text-cream" data-reveal>
       Srećniji odrasli. Srećnija deca. Srećnija planeta.
     </h2>

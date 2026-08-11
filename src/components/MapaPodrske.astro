@@ -1,4 +1,6 @@
 ---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
 const koraci = [
   {
     naslov: 'Prigrlite vreme za sebe.',
@@ -19,31 +21,42 @@ const koraci = [
 ---
 
 <section id="mapa-podrske" class="border-y border-espresso/10 bg-cream">
-  <div class="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
-    <div class="text-center" data-reveal-group>
-      <p class="eyebrow" data-reveal>Mapa podrške</p>
-      <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Kako izgleda zajednički rad</h2>
-    </div>
-    <ol class="mt-16" data-reveal-group>
-      {koraci.map(({ naslov, tekst }, i) => (
-        <li
-          class="grid grid-cols-[auto_1fr] gap-x-6 border-t border-espresso/15 py-10 md:grid-cols-[8rem_1fr] md:gap-x-10"
-          data-reveal
-        >
-          <span class="font-serif text-h2 text-coral" aria-hidden="true">0{i + 1}</span>
-          <div class="max-w-xl">
-            <h3 class="text-h3 font-medium text-espresso">{naslov}</h3>
-            <p class="mt-3 text-body text-espresso/90">{tekst}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
-    <div class="border-t border-espresso/15 pt-14 text-center" data-reveal>
-      <p class="mx-auto max-w-xl text-body text-espresso/90">
-        Uzmite trenutak za sebe — da zajedno pronađemo put ka većoj jasnoći, ravnoteži i
-        sigurnosti.
-      </p>
-      <a href="/zakazivanje" class="btn-primary mt-8">Zakažite besplatnih 15 minuta</a>
+  <div class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
+    <div class="grid grid-cols-1 gap-14 lg:grid-cols-[5fr_7fr] lg:gap-20">
+      <div data-reveal-group>
+        <p class="eyebrow" data-reveal>Mapa podrške</p>
+        <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Kako izgleda zajednički rad</h2>
+        <ImagePlaceholder
+          label="FOTO: portret Marije Garde — topao, direktan pogled, prirodno svetlo"
+          class="mt-10 aspect-[3/2] lg:aspect-[4/5]"
+        />
+        <p class="mt-5 text-small text-espresso/80" data-reveal>
+          Marija Garde — coaching podrška roditeljima i odraslima koji rade sa decom.
+        </p>
+      </div>
+      <div>
+        <ol data-reveal-group>
+          {koraci.map(({ naslov, tekst }, i) => (
+            <li
+              class="grid grid-cols-[auto_1fr] gap-x-6 border-t border-espresso/15 py-10 first:border-t-0 first:pt-0 md:grid-cols-[6rem_1fr] md:gap-x-8 lg:first:pt-2"
+              data-reveal
+            >
+              <span class="font-serif text-h2 text-coral" aria-hidden="true">0{i + 1}</span>
+              <div class="max-w-xl">
+                <h3 class="text-h3 font-medium text-espresso">{naslov}</h3>
+                <p class="mt-3 text-body text-espresso/90">{tekst}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div class="border-t border-espresso/15 pt-10" data-reveal>
+          <p class="max-w-xl text-body text-espresso/90">
+            Uzmite trenutak za sebe — da zajedno pronađemo put ka većoj jasnoći, ravnoteži i
+            sigurnosti.
+          </p>
+          <a href="/zakazivanje" class="btn-primary mt-8">Zakažite besplatnih 15 minuta</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>

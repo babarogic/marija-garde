@@ -1,4 +1,6 @@
 ---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
 const benefiti = [
   {
     naslov: 'Briga o sebi',
@@ -19,16 +21,22 @@ const benefiti = [
 ---
 
 <section id="benefiti" class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32" data-reveal-group>
-  <div class="max-w-2xl">
-    <p class="eyebrow" data-reveal>Benefiti</p>
-    <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Šta se menja</h2>
-  </div>
-  <div class="mt-14 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-10">
-    {benefiti.map(({ naslov, tekst }) => (
-      <div class="border-t border-coral/60 pt-6" data-reveal>
-        <h3 class="text-h3 font-medium text-espresso">{naslov}</h3>
-        <p class="mt-3 text-body text-espresso/90">{tekst}</p>
+  <div class="grid grid-cols-1 gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
+    <ImagePlaceholder
+      label="FOTO: trenutak olakšanja — roditelj i dete u zagrljaju, meko jutarnje svetlo, osećaj lakoće"
+      class="order-last aspect-[3/2] lg:order-first lg:aspect-[4/5]"
+    />
+    <div>
+      <p class="eyebrow" data-reveal>Benefiti</p>
+      <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Šta se menja</h2>
+      <div class="mt-12 space-y-10">
+        {benefiti.map(({ naslov, tekst }) => (
+          <div class="border-t border-coral/60 pt-6" data-reveal>
+            <h3 class="text-h3 font-medium text-espresso">{naslov}</h3>
+            <p class="mt-3 max-w-xl text-body text-espresso/90">{tekst}</p>
+          </div>
+        ))}
       </div>
-    ))}
+    </div>
   </div>
 </section>

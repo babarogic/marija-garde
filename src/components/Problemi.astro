@@ -25,19 +25,26 @@ const problemi = [
     stavke: ['Nemoć', 'Krivica', 'Prezahtevnost prema sebi (perfekcionizam)'],
   },
 ];
+import ImagePlaceholder from './ImagePlaceholder.astro';
 ---
 
 <section id="problemi" class="border-b border-espresso/10">
   <div class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
-    <div class="max-w-2xl" data-reveal-group>
-      <p class="eyebrow" data-reveal>Problemi</p>
-      <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>
-        Tačke spoticanja odraslih u kontaktu sa mladima i decom
-      </h2>
-      <p class="mt-6 text-body text-espresso/90" data-reveal>
-        Problemi odraslih u kontaktu sa decom inicirani su trenutnim emocionalnim stanjem,
-        uticajem okoline i nekorisnim komunikativnim obrascima sa decom.
-      </p>
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-20" data-reveal-group>
+      <div class="max-w-2xl">
+        <p class="eyebrow" data-reveal>Problemi</p>
+        <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>
+          Tačke spoticanja odraslih u kontaktu sa mladima i decom
+        </h2>
+        <p class="mt-6 text-body text-espresso/90" data-reveal>
+          Problemi odraslih u kontaktu sa decom inicirani su trenutnim emocionalnim stanjem,
+          uticajem okoline i nekorisnim komunikativnim obrascima sa decom.
+        </p>
+      </div>
+      <ImagePlaceholder
+        label="FOTO: odrasla osoba u tihom trenutku preopterećenosti — dokumentaran, topao ton, prirodno svetlo"
+        class="aspect-[3/2] lg:aspect-[4/3]"
+      />
     </div>
     <div class="mt-14 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
       {problemi.map(({ naslov, stavke }, i) => (

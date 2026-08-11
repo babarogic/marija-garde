@@ -16,6 +16,14 @@ const utisci = [
       'Najviše mi je značilo to što si me videla onako kako ja dugo nisam videla sebe. Tvoj pristup bio je topao, a istovremeno čvrst i jasan. Danas imam mir, jasnoću i snagu da prepoznam svoju vrednost, a promena se oseća i u porodici — više je topline, osmeha i poverenja. Ovo iskustvo me je vratilo meni i otvorilo mi put dalje.',
   },
 ];
+
+// Inicijali su privremeni avatar — kasnije ih menja fotografija klijentkinje
+// (kružna, 40×40) uz njenu saglasnost.
+const inicijali = (ime: string) =>
+  ime
+    .split(' ')
+    .map((rec) => rec[0])
+    .join('');
 ---
 
 <section id="utisci" class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
@@ -27,7 +35,15 @@ const utisci = [
     {utisci.map(({ ime, tekst }) => (
       <figure class="flex flex-col justify-between rounded-2xl bg-peach p-8 md:p-10" data-reveal>
         <blockquote class="text-body text-espresso">„{tekst}"</blockquote>
-        <figcaption class="mt-8 text-small font-medium text-espresso">{ime}</figcaption>
+        <figcaption class="mt-8 flex items-center gap-3">
+          <span
+            class="flex size-10 shrink-0 items-center justify-center rounded-full bg-cream font-sans text-small font-medium text-espresso"
+            aria-hidden="true"
+          >
+            {inicijali(ime)}
+          </span>
+          <span class="text-small font-medium text-espresso">{ime}</span>
+        </figcaption>
       </figure>
     ))}
   </div>
