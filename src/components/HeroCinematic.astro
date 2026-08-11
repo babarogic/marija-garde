@@ -33,6 +33,27 @@ import { slides } from '../data/heroSlides';
   <div class="hero-scrim absolute inset-0" aria-hidden="true"></div>
 
   <div class="relative z-10 mx-auto flex w-full max-w-4xl grow flex-col items-center justify-center px-6 pt-28 pb-16 text-center md:px-8">
+    <!-- FOTO slot: portret Marije — zameniti sa <Image class="h-full w-full object-cover" alt="Marija Garde" /> unutar ovog kruga. -->
+    <div
+      class="mb-6 flex size-16 items-center justify-center overflow-hidden rounded-full border border-dashed border-cream/60 bg-cream/10 md:size-20"
+      data-intro-item
+      aria-hidden="true"
+      title="FOTO: portret Marije Garde"
+    >
+      <svg
+        class="size-5 text-cream/70"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <circle cx="9" cy="10.5" r="1.5" />
+        <path d="M21 16.5 17 12.5a1.5 1.5 0 0 0-2.1 0L7.5 19" />
+      </svg>
+    </div>
     <p class="eyebrow text-cream" data-intro-item>Kreator milijardu zagrljaja</p>
     <div class="hero-slides mt-8 w-full">
       {slides.map(({ naslov, tekst }, i) => (
