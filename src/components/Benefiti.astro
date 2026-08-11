@@ -1,38 +1,102 @@
 ---
-import ImagePlaceholder from './ImagePlaceholder.astro';
-
 const benefiti = [
   {
     naslov: 'Briga o sebi',
     tekst:
       'Briga o sebi je briga i za vaše najdraže. Odmor ne znači neodgovornost — to je način na koji punite baterije da snažnije i kvalitetnije pređete naredne izazove i osetite olakšanje.',
+    ikona: 'cvet',
   },
   {
     naslov: 'Sloboda izbora',
     tekst:
       'Prihvatanjem da imate slobodu izbora i mnoštvo opcija, uspostavljate zdrave odnose i dobru atmosferu kod kuće i na poslu. Uspešno rešavate konflikte, a život iznova dobija smisao.',
+    ikona: 'grancica',
   },
   {
     naslov: 'Prioriteti visoke radosti',
     tekst:
       'Vreme postaje partner u kreiranju vašeg života. Vođeni prioritetima najveće radosti, postavljate se odlučno prema onome što vam je nevažno i oslobađate prostor za ono što vas ispunjava.',
+    ikona: 'latice',
   },
+];
+
+// Podaci u kartici su stvarni detalji ponude; po potrebi zameniti drugim brojkama.
+const statistike = [
+  { broj: '1 mlrd', tekst: 'zagrljaja kao misija koncepta' },
+  { broj: '4', tekst: 'jezika na kojima vodimo sesije' },
 ];
 ---
 
-<section id="benefiti" class="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32" data-reveal-group>
-  <div class="grid grid-cols-1 gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
-    <ImagePlaceholder
-      label="FOTO: trenutak olakšanja — roditelj i dete u zagrljaju, meko jutarnje svetlo, osećaj lakoće"
-      class="order-last aspect-[3/2] lg:order-first lg:aspect-[4/5]"
-    />
-    <div>
-      <p class="eyebrow" data-reveal>Benefiti</p>
-      <h2 class="mt-4 font-serif text-h2 text-espresso" data-reveal>Šta se menja</h2>
-      <div class="mt-12 space-y-10">
-        {benefiti.map(({ naslov, tekst }) => (
-          <div class="border-t border-coral/60 pt-6" data-reveal>
-            <h3 class="text-h3 font-medium text-espresso">{naslov}</h3>
+<section id="benefiti" class="relative overflow-hidden bg-peach">
+  <!-- Dekorativni cvet u uglu — samo nagoveštaj oblika, krem na breskvi. -->
+  <svg
+    class="pointer-events-none absolute -right-24 -top-28 size-96 text-cream/45 md:-right-16 md:-top-20"
+    viewBox="0 0 48 48"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    {[0, 60, 120, 180, 240, 300].map((ugao) => (
+      <ellipse cx="24" cy="11.5" rx="4.8" ry="9.5" transform={`rotate(${ugao} 24 24)`} />
+    ))}
+  </svg>
+
+  <div class="relative mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32" data-reveal-group>
+    <div class="grid grid-cols-1 gap-16 lg:grid-cols-[6fr_5fr] lg:gap-24">
+      <div class="flex flex-col">
+        <p class="eyebrow" data-reveal>Benefiti</p>
+        <h2 class="mt-5 max-w-xl font-serif text-display text-espresso" data-reveal>
+          Šta se menja kada izaberete sebe
+        </h2>
+        <p class="mt-6 max-w-md text-body text-espresso/90" data-reveal>
+          Promena ne počinje novim pravilima, već ravnotežom koju gradite u sebi. Kroz zajednički
+          rad vraćate energiju i jasnoću — a deca oko vas dobijaju stabilniji svet.
+        </p>
+        <div
+          class="mt-14 grid max-w-md grid-cols-2 gap-6 rounded-2xl bg-cream p-8 md:p-10 lg:mt-auto"
+          data-reveal
+        >
+          {statistike.map(({ broj, tekst }) => (
+            <div>
+              <p class="font-serif text-display text-espresso">{broj}</p>
+              <p class="mt-2 text-small text-espresso/80">{tekst}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-12 lg:space-y-14">
+        {benefiti.map(({ naslov, tekst, ikona }) => (
+          <div data-reveal>
+            {ikona === 'cvet' && (
+              <svg class="size-10 text-espresso" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
+                {[0, 60, 120, 180, 300].map((ugao) => (
+                  <ellipse cx="24" cy="11.5" rx="4.8" ry="9.5" transform={`rotate(${ugao} 24 24)`} />
+                ))}
+                <ellipse cx="24" cy="11.5" rx="4.8" ry="9.5" transform="rotate(240 24 24)" class="fill-coral" />
+                <circle cx="24" cy="24" r="3.5" class="fill-cream" />
+              </svg>
+            )}
+            {ikona === 'grancica' && (
+              <svg class="size-10 text-espresso" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M24 44V10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <ellipse cx="17" cy="14" rx="3.5" ry="8" transform="rotate(52 17 14)" fill="currentColor" />
+                <ellipse cx="31" cy="14" rx="3.5" ry="8" transform="rotate(-52 31 14)" class="fill-coral" />
+                <ellipse cx="17" cy="24" rx="3.5" ry="8" transform="rotate(52 17 24)" fill="currentColor" />
+                <ellipse cx="31" cy="24" rx="3.5" ry="8" transform="rotate(-52 31 24)" fill="currentColor" />
+                <ellipse cx="17" cy="34" rx="3.5" ry="8" transform="rotate(52 17 34)" fill="currentColor" />
+                <ellipse cx="31" cy="34" rx="3.5" ry="8" transform="rotate(-52 31 34)" fill="currentColor" />
+              </svg>
+            )}
+            {ikona === 'latice' && (
+              <svg class="size-10 text-espresso" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
+                <circle cx="15.5" cy="15.5" r="9.5" />
+                <circle cx="32.5" cy="15.5" r="9.5" class="fill-coral" />
+                <circle cx="15.5" cy="32.5" r="9.5" />
+                <circle cx="32.5" cy="32.5" r="9.5" />
+                <rect x="17.5" y="17.5" width="13" height="13" rx="2" transform="rotate(45 24 24)" class="fill-cream" />
+              </svg>
+            )}
+            <h3 class="mt-5 text-h3 font-medium text-espresso">{naslov}</h3>
             <p class="mt-3 max-w-xl text-body text-espresso/90">{tekst}</p>
           </div>
         ))}
