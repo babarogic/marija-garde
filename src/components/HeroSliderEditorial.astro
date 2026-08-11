@@ -39,7 +39,7 @@ import { slides } from '../data/heroSlides';
       ))}
     </div>
     <div class="mt-10">
-      <a href="/zakazivanje" class="btn-primary">Zakažite besplatnih 15 minuta</a>
+      <a href="/zakazivanje" class="btn-primary" data-hero-hold>Zakažite besplatnih 15 minuta</a>
     </div>
 
     <div class="mx-auto mt-16 flex max-w-4xl flex-col items-stretch gap-6 sm:flex-row sm:items-end">
@@ -48,6 +48,7 @@ import { slides } from '../data/heroSlides';
           <button
             type="button"
             data-slide-nav
+            data-hero-hold
             aria-current={i === 0 ? 'true' : 'false'}
             class="group cursor-pointer text-left opacity-75 transition-opacity duration-300 hover:opacity-100 aria-[current=true]:opacity-100"
           >

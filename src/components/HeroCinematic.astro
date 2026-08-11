@@ -1,30 +1,39 @@
 ---
-// Variant A — full-bleed rotating hero. One shared meadow photo, espresso
-// scrim, cream type, Potreba lines as progress navigation at the bottom.
+// Variant C — full-bleed hero with a cinematic intro. On load the frame opens
+// out of a small rounded window to full bleed while the photo settles from a
+// wider crop; the type then arrives on top. Once settled, the photo drifts a
+// few pixels against the cursor.
+//
+// The intro animates clip-path and transform only — never opacity — so the
+// photo still counts as the LCP paint.
 import { Image } from 'astro:assets';
 import heroMeadow from '../assets/hero-meadow.webp';
 import { slides } from '../data/heroSlides';
 ---
 
 <section
+  data-hero-cinematic
   data-hero-slider
-  class="relative flex min-h-svh flex-col"
+  class="hero-cinematic relative flex min-h-svh flex-col"
   style="--hero-duration: 7s"
   aria-label="Uvodne poruke"
 >
-  <Image
-    src={heroMeadow}
-    alt=""
-    class="absolute inset-0 h-full w-full object-cover"
-    widths={[768, 1280, 1920, 2560]}
-    sizes="100vw"
-    loading="eager"
-    fetchpriority="high"
-  />
+  <div class="hero-media" aria-hidden="true">
+    <div class="hero-shift">
+      <Image
+        src={heroMeadow}
+        alt=""
+        widths={[768, 1280, 1920, 2560]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
   <div class="hero-scrim absolute inset-0" aria-hidden="true"></div>
 
   <div class="relative z-10 mx-auto flex w-full max-w-4xl grow flex-col items-center justify-center px-6 pt-28 pb-16 text-center md:px-8">
-    <p class="eyebrow text-cream/90">Kreator milijardu zagrljaja</p>
+    <p class="eyebrow text-cream" data-intro-item>Kreator milijardu zagrljaja</p>
     <div class="hero-slides mt-8 w-full">
       {slides.map(({ naslov, tekst }, i) => (
         <div
@@ -53,14 +62,18 @@ import { slides } from '../data/heroSlides';
         </div>
       ))}
     </div>
-    <div class="mt-10">
+    <div class="mt-10" data-intro-item style="--intro-delay: 260ms">
       <a href="/zakazivanje" class="btn-reversed focus-visible:outline-cream" data-hero-hold>
         Zakažite besplatnih 15 minuta
       </a>
     </div>
   </div>
 
-  <div class="relative z-10 mx-auto w-full max-w-6xl px-6 pb-10 md:px-8">
+  <div
+    class="relative z-10 mx-auto w-full max-w-6xl px-6 pb-10 md:px-8"
+    data-intro-item
+    style="--intro-delay: 420ms"
+  >
     <div class="flex flex-col items-stretch gap-6 sm:flex-row sm:items-end">
       <nav aria-label="Izbor uvodne poruke" class="grid grow grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-8">
         {slides.map(({ potreba }, i) => (
@@ -102,5 +115,27 @@ import { slides } from '../data/heroSlides';
 
 <script>
   import { initHeroSlider } from '../scripts/hero-slider';
-  document.querySelectorAll<HTMLElement>('[data-hero-slider]').forEach(initHeroSlider);
+  import { initHeroParallax } from '../scripts/hero-parallax';
+
+  // The headline stagger is driven by the slider's activate(0), so holding the
+  // slider back is what keeps the type from arriving on top of the reveal.
+  // Deliberately lands before the frame finishes opening — the type rising
+  // through the last third reads better than waiting for a clean handoff.
+  const INTRO_HOLD = 900;
+
+  document.querySelectorAll<HTMLElement>('[data-hero-cinematic]').forEach((root) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initHeroParallax(root);
+
+    if (reduced) {
+      root.classList.add('is-intro-done');
+      initHeroSlider(root);
+      return;
+    }
+
+    window.setTimeout(() => {
+      root.classList.add('is-intro-done');
+      initHeroSlider(root);
+    }, INTRO_HOLD);
+  });
 </script>

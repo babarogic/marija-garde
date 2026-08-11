@@ -1,4 +1,12 @@
 ---
+interface Props {
+  /** Lay the header over a full-bleed hero: transparent with a top gradient
+      for contrast, solidifying to the cream bar once the hero scrolls past. */
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+
 const links = [
   { href: '#benefiti', label: 'Benefiti' },
   { href: '#oblasti-rada', label: 'Oblasti rada' },
@@ -8,16 +16,74 @@ const links = [
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-espresso/10 bg-cream/95 backdrop-blur-sm">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
-    <a href="/" class="font-sans text-h3 font-medium tracking-wide text-espresso">Marija Garde</a>
+<header
+  data-site-header
+  data-overlay={overlay ? '' : undefined}
+  class:list={[
+    'z-50',
+    overlay
+      ? 'fixed inset-x-0 top-0'
+      : 'sticky top-0 border-b border-espresso/10 bg-cream/95 backdrop-blur-sm',
+  ]}
+>
+  {overlay && (
+    <>
+      <div
+        class="nav-gradient pointer-events-none absolute inset-0 transition-opacity duration-500"
+        data-nav-gradient
+        aria-hidden="true"
+      >
+      </div>
+      {/* Fully opaque, unlike the sticky variant's bg-cream/95 — a floating
+          bar over the hero ghosts any dark heading that scrolls under it. */}
+      <div
+        class="pointer-events-none absolute inset-0 border-b border-espresso/10 bg-cream opacity-0 transition-opacity duration-500"
+        data-nav-solid
+        aria-hidden="true"
+      >
+      </div>
+    </>
+  )}
+
+  <div class="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
+    <a href="/" class="font-sans text-h3 font-medium tracking-wide">Marija Garde</a>
     <nav aria-label="Glavna navigacija" class="hidden items-center gap-8 md:flex">
       {links.map(({ href, label }) => (
-        <a href={href} class="link-quiet text-small">{label}</a>
+        <a href={href} class:list={[overlay ? 'link-nav' : 'link-quiet', 'text-small']}>{label}</a>
       ))}
     </nav>
-    <a href="/zakazivanje" class="link-quiet text-small font-medium decoration-coral">
+    <a
+      href="/zakazivanje"
+      class:list={[
+        'text-small font-medium',
+        overlay ? 'link-nav' : 'link-quiet decoration-coral',
+      ]}
+    >
       Zakažite besplatnih 15 minuta
     </a>
   </div>
 </header>
+
+<script>
+  // Overlay header only: swap the hero gradient for the solid cream bar once
+  // the hero has scrolled past. No-ops on pages using the default header.
+  const header = document.querySelector<HTMLElement>('[data-site-header][data-overlay]');
+
+  if (header) {
+    const gradient = header.querySelector<HTMLElement>('[data-nav-gradient]');
+    const solid = header.querySelector<HTMLElement>('[data-nav-solid]');
+    const hero = document.querySelector<HTMLElement>('[data-hero-cinematic]');
+
+    const sync = () => {
+      const threshold = hero ? hero.offsetHeight - header.offsetHeight : 120;
+      const on = window.scrollY > threshold;
+      header.classList.toggle('is-solid', on);
+      if (gradient) gradient.style.opacity = on ? '0' : '1';
+      if (solid) solid.style.opacity = on ? '1' : '0';
+    };
+
+    sync();
+    window.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync, { passive: true });
+  }
+</script>

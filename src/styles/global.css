@@ -251,6 +251,169 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Cinematic hero (variant C) — the frame opens out of a small rounded window
+   to full bleed, the photo settles from a wider crop, then the type arrives.
+   Only clip-path and transform animate, never opacity, so the photo still
+   counts as the LCP paint.
+
+   Parallax drift lives on its own wrapper (.hero-shift) so the cursor
+   transform and the intro's scale never fight over the same property.
+--------------------------------------------------------------------------- */
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-shift {
+  height: 100%;
+  width: 100%;
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+}
+.hero-media img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  /* Resting overscan gives the parallax room to move without exposing edges. */
+  transform: scale(1.06);
+}
+
+/* Slower out of the gate than an ease-out-expo: the window shape is the best
+   moment of the reveal, so it holds for a beat before it opens. */
+.js .hero-cinematic .hero-media {
+  animation: hero-open 1400ms cubic-bezier(0.62, 0.03, 0.17, 1) both;
+}
+.js .hero-cinematic .hero-media img {
+  animation: hero-settle 1800ms cubic-bezier(0.62, 0.03, 0.17, 1) both;
+}
+/* Fade the overlay nav in with the frame — before the photo is behind it the
+   contrast gradient reads as a smudge on the cream page. */
+.js [data-site-header][data-overlay] {
+  animation: hero-scrim-in 900ms 450ms ease-out both;
+}
+.js .hero-cinematic .hero-scrim {
+  animation: hero-scrim-in 1100ms 350ms ease-out both;
+}
+
+/* Lighter than the variant-A scrim: the photo is the point here, so the
+   darkness pools behind the type instead of flattening the whole frame. The
+   pool sits high enough to cover the eyebrow, which otherwise lands on bright
+   sky at around 2.5:1. */
+.hero-cinematic .hero-scrim {
+  background:
+    radial-gradient(
+      95% 88% at 50% 40%,
+      --alpha(var(--color-espresso) / 62%),
+      transparent 78%
+    ),
+    linear-gradient(
+      to bottom,
+      --alpha(var(--color-espresso) / 38%),
+      --alpha(var(--color-espresso) / 30%) 45%,
+      --alpha(var(--color-espresso) / 60%)
+    );
+}
+
+/* A soft shadow does the last of the legibility work, so the scrim can stay
+   light enough to keep the photograph alive. Tuned to be invisible as an
+   effect — it reads as weight, not as a drop shadow. */
+.hero-cinematic .hero-slides,
+.hero-cinematic .eyebrow {
+  text-shadow:
+    0 1px 2px --alpha(var(--color-espresso) / 38%),
+    0 2px 14px --alpha(var(--color-espresso) / 28%);
+}
+
+@keyframes hero-open {
+  0%,
+  10% {
+    clip-path: inset(16% 12% 16% 12% round 32px);
+  }
+  100% {
+    clip-path: inset(0 0 0 0 round 0);
+  }
+}
+@keyframes hero-settle {
+  from {
+    transform: scale(1.24);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+@keyframes hero-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.js .hero-cinematic [data-intro-item] {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+.js .hero-cinematic.is-intro-done [data-intro-item] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--intro-delay, 0ms),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--intro-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-cinematic .hero-media,
+  .js .hero-cinematic .hero-media img,
+  .js .hero-cinematic .hero-scrim,
+  .js [data-site-header][data-overlay] {
+    animation: none;
+  }
+  .js .hero-cinematic [data-intro-item] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-shift {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Overlay navigation — transparent over a full-bleed hero, with a top-down
+   gradient carrying the contrast. Solidifies to the cream bar once the hero
+   has scrolled past.
+--------------------------------------------------------------------------- */
+
+[data-site-header][data-overlay] {
+  --nav-fg: var(--color-cream);
+  color: var(--nav-fg);
+  transition: color 0.4s ease;
+}
+[data-site-header][data-overlay].is-solid {
+  --nav-fg: var(--color-espresso);
+}
+.nav-gradient {
+  background: linear-gradient(
+    to bottom,
+    --alpha(var(--color-espresso) / 55%),
+    --alpha(var(--color-espresso) / 20%) 60%,
+    transparent
+  );
+}
+.link-nav {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.3s ease;
+}
+.link-nav:hover {
+  text-decoration-color: var(--color-coral);
+}
+
+/* ---------------------------------------------------------------------------
    Scroll reveal — fade + small rise, staggered inside a group.
    Gated behind .js on <html> so content is never hidden without JavaScript.
    Respects prefers-reduced-motion.

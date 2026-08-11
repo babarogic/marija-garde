@@ -62,12 +62,37 @@ export function initHeroSlider(root: HTMLElement) {
     });
   }
 
-  // Hover / keyboard focus inside the hero holds the rotation without
-  // flipping the explicit play/pause state.
-  root.addEventListener('mouseenter', () => root.classList.add('is-held'));
-  root.addEventListener('mouseleave', () => root.classList.remove('is-held'));
-  root.addEventListener('focusin', () => root.classList.add('is-held'));
-  root.addEventListener('focusout', () => root.classList.remove('is-held'));
+  // The rotation runs continuously. It only holds while the pointer or the
+  // keyboard focus is on a control the user is about to act on — the CTA or
+  // one of the slide buttons — so reading the hero never freezes it. Holding
+  // this way does not flip the explicit play/pause state.
+  //
+  // Hovering the hero as a whole used to hold it, which in a full-bleed hero
+  // meant the rotation was paused almost permanently: the pointer is inside
+  // the section nearly all the time.
+  const held = new Set<HTMLElement>();
+
+  function syncHold() {
+    root.classList.toggle('is-held', held.size > 0);
+  }
+
+  root.querySelectorAll<HTMLElement>('[data-hero-hold]').forEach((el) => {
+    const hold = () => {
+      held.add(el);
+      syncHold();
+    };
+    const release = () => {
+      held.delete(el);
+      syncHold();
+    };
+    // pointerenter/leave rather than mouseenter/leave so a touch tap that
+    // lands on a control releases cleanly; pointercancel avoids a stale hold.
+    el.addEventListener('pointerenter', hold);
+    el.addEventListener('pointerleave', release);
+    el.addEventListener('pointercancel', release);
+    el.addEventListener('focusin', hold);
+    el.addEventListener('focusout', release);
+  });
 
   activate(0);
 }
